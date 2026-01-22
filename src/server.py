@@ -23,12 +23,13 @@ with open("./src/index.html", "r") as f:
     html = f.read()
 
 
-class DataProcessor:
+class DataProcessor: #saves the data into csv 
     def __init__(self):
-        self.data_buffer = []
+        self.data_buffer = [] #list where you save data
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        self.file_path = f"fall_data_{timestamp}.csv"
+        self.file_path = f"./fall_data_{timestamp}.csv"
+        print(self.file_path)
 
     def add_data(self, data):
         self.data_buffer.append(data)
@@ -43,7 +44,7 @@ class DataProcessor:
             mode="a",
             header=not os.path.exists(self.file_path),
         )
-        # print(f"DataFrame saved to {self.file_path}")
+        #print(f"DataFrame saved to {self.file_path}")
 
 
 data_processor = DataProcessor()
@@ -114,6 +115,7 @@ async def websocket_endpoint(websocket: WebSocket):
             data_processor.add_data(json_data)
             # this line save the recent 100 samples to the CSV file. you can change 100 if you want.
             if len(data_processor.data_buffer) >= 100:
+                print("save to file")
                 data_processor.save_to_csv()
 
             """  

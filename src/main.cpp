@@ -3,14 +3,14 @@
 #include <WiFi.h>
 #include <WebSocketsClient.h>
 #include <Adafruit_BusIO_Register.h>
-
+#include <Arduino.h>
 // Public internet, allow port in firewall
 // Replace with your network credentials
-const char *ssid = "your WiFi SSID";
-const char *password = "your Passoword";
+const char *ssid = "Edith (2)";
+const char *password = "tionollor";
 
 // Replace with your WebSocket server address
-const char *webSocketServer = "your WiFi IP Address";
+const char *webSocketServer = "172.20.10.13";
 
 const int webSocketPort = 8000;
 const char *webSocketPath = "/";
@@ -19,6 +19,7 @@ WebSocketsClient client;
 // SocketIOClient socketIO;
 
 bool wifiConnected = false;
+
 
 void setup()
 {
@@ -61,7 +62,7 @@ void loop()
                      ",\"gyroscope_y\":" + String(gy) +
                      ",\"gyroscope_z\":" + String(gz) + "}";
 
-    Serial.println("Skiikar....");
+    Serial.println(payload);
     // server address, port and URL
     // Send data via WebSocket
     client.sendTXT(payload);
